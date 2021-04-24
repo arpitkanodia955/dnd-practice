@@ -1,17 +1,17 @@
 import React from "react";
-import { ListGroup, ListGroupItem } from 'reactstrap';
-import {Row, Col, List, Typography, Divider } from 'antd';
 
 class TaskList extends React.Component {
-  state = { tasks: [], days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'] };
+
+  state = { list_item: [], days: this.props.week_days};
+
   /**
   * @method componentDidMount
   * @description called after mounting the component
   */
   componentDidMount() {
-    const { tasks } = this.props;
+    const { list_item } = this.props;
     this.setState({
-      tasks,
+      list_item,
     });
   }
 
@@ -77,12 +77,12 @@ class TaskList extends React.Component {
     evt.preventDefault();
     evt.currentTarget.classList.remove("dragged-over");
     let data = evt.dataTransfer.getData("text/plain");
-    let tasks = this.state.tasks;
-    let updated = tasks.map(task => {
-      if (task.id == data) task.done = value;
+    let list_item = this.state.list_item;
+    let updated = list_item.map(task => {
+      if (task.id == data) task.day_index = value;
       return task;
     });
-    this.setState({ tasks: updated });
+    this.setState({ list_item: updated });
   };
 
   /**
@@ -90,14 +90,12 @@ class TaskList extends React.Component {
   * @description render component
   */
   render() {
-    const {days, tasks } = this.state;
-    let pending = tasks.filter(t => !t.done);
-    let done = tasks.filter(t => t.done);
+    const {days, list_item } = this.state;
+    let pets_list = list_item.filter(t => t.day_index === '');
     return (
     <div className="App">
       <header className="App-header">
         <h1>Pets list</h1>
-       
         <div className="container">
             <div
             className="pending small-box"
@@ -105,48 +103,40 @@ class TaskList extends React.Component {
             onDragEnter={e => this.onDragEnter(e)}
             onDragEnd={e => this.onDragEnd(e)}
             onDragOver={e => this.onDragOver(e)}
-            onDrop={e => this.onDrop(e, false)}
+            onDrop={e => this.onDrop(e, '')}
             >
             <h3>Pets list</h3>
-            {pending.map(task => (
+            {pets_list.map(pet => (
                 <div
-                className="task"
-                key={task.name}
-                id={task.id}
-                draggable
-                onDragStart={e => this.onDragStart(e)}
-                onDragEnd={e => this.onDragEnd(e)}
+                  className="task"
+                  key={pet.name}
+                  id={pet.id}
+                  draggable
+                  onDragStart={e => this.onDragStart(e)}
+                  onDragEnd={e => this.onDragEnd(e)}
                 >
-                {task.name}
+                {pet.name}
                <div className="characters-thumb">
-                    <img src={task.thumb} alt={`Thumb`} />
+                    <img src={pet.thumb} alt={`Thumb`} />
                 </div>
 
                 </div>
             ))}
             </div>
-            <div className="done week-box">
-            <h3>Week days</h3>
-                {days.map(el => (
-                    <div className='task'>
-                        {el}
-                    </div>
-                ))}
-            </div>
-            
+            {days.map(el => (
             <div
                 className="done small-box"
                 onDragLeave={e => this.onDragLeave(e)}
                 onDragEnter={e => this.onDragEnter(e)}
                 onDragEnd={e => this.onDragEnd(e)}
                 onDragOver={e => this.onDragOver(e)}
-                onDrop={e => this.onDrop(e, true)}
+                onDrop={e => this.onDrop(e, el)}
             >
-            <h3>Pets lists</h3>
-            {done.map(task => (
+            <h3>{el}</h3>
+            {list_item.filter(t => t.day_index === el).map(task => (
                 <div
                 className="task"
-                key={task.name}
+                key={el}
                 id={task.id}
                 draggable
                 onDragStart={e => this.onDragStart(e)}
@@ -158,7 +148,7 @@ class TaskList extends React.Component {
                 </div>
                 </div>
             ))}
-            </div>
+            </div> ))}
         </div>
       </header>
     </div>
