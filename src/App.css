@@ -1,0 +1,109 @@
+/* .App {
+  text-align: center;
+} */
+
+.App-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 1.5vmin);
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.characters {
+  list-style: none;
+  padding-left: 0;
+}
+
+.characters li {
+  display: flex;
+  align-items: center;
+  border: solid 2px #d0d0d0;
+  border-radius: .2em;
+  padding: .5em .8em .5em .5em;
+  margin-bottom: 1em;
+}
+
+.characters p {
+  max-width: none;
+  font-weight: bold;
+  margin: 0;
+}
+
+.characters-thumb {
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 2em;
+  height: 2em;
+  background-color: #e8e8e8;
+  padding: .5em;
+  margin-right: .5em;
+}
+
+.characters-thumb img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  background: rgb(251, 253, 253);
+}
+h3 {
+  font-weight: 200;
+  text-shadow: 1px 1px 3px gray;
+}
+.container {
+  height: 90vh;
+  width: 80vw;
+  margin: 0 auto;
+  padding: 10px;
+  display: flex;
+  justify-content: space-evenly;
+}
+.small-box {
+  width: 40%;
+  box-shadow: 3px 3px 50px 2px gray;
+}
+
+.task {
+  border: 1px solid white;
+  margin: 10px;
+  box-shadow: 1px 3px 20px gray;
+  height: 8vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dragged {
+  background-color: rgba(200, 200, 200, 0.3);
+  opacity: 0.5;
+  cursor: pointer;
+}
+.dragged-over {
+  background: rgba(255, 0, 0, 0.2);
+  .task {
+    background: rgba(255,0,0,0.1);
+  }
+}
+
+.week-box {
+  width: 20%;
+  box-shadow: 3px 3px 50px 2px gray;
+}
