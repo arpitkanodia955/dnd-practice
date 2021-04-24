@@ -1,8 +1,11 @@
 import React from "react";
+import AddPets from './AddPets'
+import { Button } from 'antd'
 
-class TaskList extends React.Component {
 
-  state = { list_item: [], days: this.props.week_days};
+class PetsList extends React.Component {
+
+  state = { list_item: [], days: this.props.week_days,visible: false};
 
   /**
   * @method componentDidMount
@@ -13,6 +16,7 @@ class TaskList extends React.Component {
     this.setState({
       list_item,
     });
+
   }
 
 
@@ -90,7 +94,7 @@ class TaskList extends React.Component {
   * @description render component
   */
   render() {
-    const {days, list_item } = this.state;
+    const {days, list_item, visible } = this.state;
     let pets_list = list_item.filter(t => t.day_index === '');
     return (
     <div className="App">
@@ -119,9 +123,9 @@ class TaskList extends React.Component {
                <div className="characters-thumb">
                     <img src={pet.thumb} alt={`Thumb`} />
                 </div>
-
                 </div>
             ))}
+            <Button onClick={() => this.setState({visible:true})}>Add more pets</Button>
             </div>
             {days.map(el => (
             <div
@@ -151,9 +155,16 @@ class TaskList extends React.Component {
             </div> ))}
         </div>
       </header>
+      
+      {visible && <AddPets
+        visible={visible}
+        onCancel={() => this.setState({visible: false})}
+        appendData={(new_data) => this.setState({list_item:[new_data,...list_item] })}
+        lastIndex={list_item && (list_item.length - 1)}
+      />}
     </div>
     );
   }
 }
 
-export default TaskList;
+export default PetsList;
