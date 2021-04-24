@@ -1,6 +1,6 @@
 
  export const WEEK_DAYS = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
-export const TASKS = [
+export const LIST_ITEM = [
     {
       id: '1',
       name: 'Gary Goodspeed',
